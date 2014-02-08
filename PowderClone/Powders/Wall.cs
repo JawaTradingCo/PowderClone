@@ -2,7 +2,7 @@
 
 namespace PowderClone
 {
-    class Wall : Powder, Flammable
+    class Wall : Powder, Flammable, Anchored
     {
         public Wall()
         {

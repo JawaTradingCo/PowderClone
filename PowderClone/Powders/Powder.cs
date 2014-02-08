@@ -201,7 +201,7 @@ namespace PowderClone
             var powder = Simulator.Powders.FirstOrDefault(c => c.y == y + 1);
             if (powder != null)
             {
-                if (powder is Wall) return true;
+                if (powder is Anchored) return true;
                 return Simulator.Powders.First(c => c.y == y + 1).OnSolid();
             }
 
