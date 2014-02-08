@@ -17,7 +17,7 @@ namespace PowderClone
 
         public virtual void Update()
         {
-            MoveY(1);
+            MoveY(2);
         }
         public void InternalUpdate()
         {
@@ -57,16 +57,20 @@ namespace PowderClone
                     if (distance > 0)
                     {
                         //the smallest number is the closest
-                        int NearestObstacleNumber = PossibleObstacles.Min(c => c.y);
 
-                        y = NearestObstacleNumber - 1 - distance;
+                        //doing a OrderBy.ToList[0] is the fastest according to performance analysis
+                        var nearest = PossibleObstacles.OrderBy(c => c.y).ToList()[0];
+
+                        y = nearest.y - 1 - distance;
                     }
                     else
                     {
-                        //the biggest number is the closest
-                        int NearestObstacleNumber = PossibleObstacles.Max(c => c.y);
+                        ////the biggest number is the closest
 
-                        y = NearestObstacleNumber + 1 + (distance * -1);
+                        //doing a OrderBy.ToList[0] is the fastest according to performance analysis
+                        var nearest = PossibleObstacles.OrderByDescending(c => c.y).ToList()[0];
+
+                        y = nearest.y + 1 + (distance * -1);
                     }
                 }
 
@@ -128,24 +132,24 @@ namespace PowderClone
 
                 if (PossibleObstacles.Any())
                 {
-                    //is positive?
+                    //are we positive or negative?
                     if (distance > 0)
                     {
-                        //lowest number = closest
-                        int NearestObstacleNumber = PossibleObstacles.Min(c => c.x);
+                        //the smallest number is the closest
 
-                        //move ourselves next to it
-                        x = NearestObstacleNumber - 1;
-                        return;
+                        //doing a OrderBy.ToList[0] is the fastest according to performance analysis
+                        var nearest = PossibleObstacles.OrderBy(c => c.x).ToList()[0];
+
+                        x = nearest.x - 1 - distance;
                     }
                     else
                     {
-                        //biggest number = closest
-                        int NearestObstacleNumber = PossibleObstacles.Max(c => c.x);
+                        ////the biggest number is the closest
 
-                        //move ourselves next to it
-                        x = NearestObstacleNumber + 1;
-                        return;
+                        //doing a OrderBy.ToList[0] is the fastest according to performance analysis
+                        var nearest = PossibleObstacles.OrderByDescending(c => c.x).ToList()[0];
+
+                        x = nearest.x + 1 + (distance * -1);
                     }
                 }
 

@@ -23,7 +23,7 @@ namespace PowderClone
                 }
             }
 
-            MoveY(1);
+            MoveY(2);
         }
 
         public double Flammability()

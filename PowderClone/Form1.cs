@@ -14,8 +14,9 @@ namespace PowderClone
         private bool doMouseDraw;
         private bool doMouseDelete;
 
-        private Type currentPowder = typeof (Sand);
-        
+        private Type currentPowder = typeof(Sand);
+
+
         public Form1()
         {
             InitializeComponent();
@@ -25,6 +26,8 @@ namespace PowderClone
             Simulator.RenderComplete += Simulator_RenderComplete;
 
             Simulator.Start();
+
+            Testing.StartTest();
         }
 
 
@@ -51,14 +54,14 @@ namespace PowderClone
             }
             if (doMouseDelete)
             {
-                Simulator.RemovePowderSafe(Simulator.MouseLocation.X,Simulator.MouseLocation.Y);
+                Simulator.RemovePowderSafe(Simulator.MouseLocation.X, Simulator.MouseLocation.Y);
             }
         }
 
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            switch(e.Button)
+            switch (e.Button)
             {
                 case MouseButtons.Left:
                     PlaceFromMouse();
@@ -81,15 +84,21 @@ namespace PowderClone
 
         private void PlaceFromMouse()
         {
-            var powder = (Powder) Activator.CreateInstance(currentPowder);
-            powder.x = Simulator.MouseLocation.X;
-            powder.y = Simulator.MouseLocation.Y;
-            Simulator.AddPowderSafe(powder);
+            var square = Utility.MakeSquare(Simulator.MouseLocation, 1);
+            foreach (Point point in square)
+            {
+                var powder = (Powder)Activator.CreateInstance(currentPowder);
+                powder.x = point.X;
+                powder.y = point.Y;
+                Simulator.AddPowderSafe(powder);
+            }
         }
+
+        #region Buttons
 
         private void buttonPowder_Click(object sender, EventArgs e)
         {
-            currentPowder = typeof (Powder);
+            currentPowder = typeof(Powder);
         }
 
         private void buttonSand_Click(object sender, EventArgs e)
@@ -120,5 +129,6 @@ namespace PowderClone
         {
             Simulator.ClearPowders();
         }
+        #endregion
     }
 }

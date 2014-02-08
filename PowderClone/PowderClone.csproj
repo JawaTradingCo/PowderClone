@@ -68,6 +68,8 @@
     <Compile Include="Powders\Sand.cs" />
     <Compile Include="Simulator.cs" />
     <Compile Include="Powders\Wall.cs" />
+    <Compile Include="Testing.cs" />
+    <Compile Include="Utility.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
