@@ -25,6 +25,10 @@ namespace PowderClone
 
         static public List<Keys> keysDown = new List<Keys>();
 
+        public static int RenderTime = 0;
+
+        public static int SimulateTime = 0;
+
         public static object PowderLock = new object();
         public static object RenderLock = new object();
 
@@ -47,7 +51,7 @@ namespace PowderClone
         {
             lock (PowderLock)
             {
-                foreach (var p in Powders.ToList())
+                foreach (var p in Powders.Where(p => !p.IsSolid))
                 {
                     p.InternalUpdate();
                 }
@@ -58,10 +62,20 @@ namespace PowderClone
         {
             lock (RenderLock)
             {
+                var counter = new Stopwatch();
+                counter.Start();
+
                 if (DoSimulate)
                     Simulate();
 
+                SimulateTime = (int)counter.ElapsedMilliseconds;
+
+                counter.Restart();
                 RenderComplete(Renderer.Render());
+
+                RenderTime = (int)counter.ElapsedMilliseconds;
+
+                counter.Stop();
             }
 
         }
@@ -70,7 +84,6 @@ namespace PowderClone
         {
             if (p.y >= 0 && p.x >= 0 && p.y <= ROpt.OutputWidth && p.x <= ROpt.OutputHeight)
             {
-                Debug.WriteLine("Adding powder at {0} {1}", p.x, p.y);
                 lock (PowderLock)
                 {
                     if (!Powders.Exists(c => c.x == p.x & c.y == p.y)) //Make sure space isnt occupied
@@ -79,6 +92,18 @@ namespace PowderClone
                     }
                 }
             }
+        }
+
+        public static void RemovePowderSafe(int x, int y)
+        {
+            lock(PowderLock)
+                Powders.RemoveAll(p => p.x == x && p.y == y);
+        }
+
+        public static void ClearPowders()
+        {
+            lock(PowderLock)
+                Powders.Clear();
         }
 
     }

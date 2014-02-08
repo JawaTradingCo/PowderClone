@@ -13,7 +13,7 @@ namespace PowderClone
 
         public bool IsSolid = false;
 
-        public Color PowderColor = Color.SandyBrown;
+        public Color PowderColor = Color.Gray;
 
         public virtual void Update()
         {

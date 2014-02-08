@@ -1,8 +1,14 @@
 ﻿
+using System.Drawing;
+
 namespace PowderClone
 {
     class Liquid : Powder 
     {
+        public Liquid()
+        {
+            SetColor(Color.SkyBlue);
+        }
         public override void Update()
         {
             //pls fix is bad
