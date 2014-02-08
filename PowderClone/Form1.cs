@@ -41,7 +41,6 @@ namespace PowderClone
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            Simulator.DoSimulate = false;
 
             Simulator.AddPowderSafe(new Sand { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y});
 
@@ -51,8 +50,6 @@ namespace PowderClone
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-
-            Simulator.DoSimulate = true;
 
             doMouseDraw = false;
         }
