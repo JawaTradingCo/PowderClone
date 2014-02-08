@@ -6,8 +6,7 @@ namespace PowderClone
     {
         public Wall()
         {
-            SetPos(5, 10);
-            SetColor(Color.SlateGray);
+            PowderColor = Color.SlateGray;
 
             IsSolid = true;
         }

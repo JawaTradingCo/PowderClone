@@ -11,7 +11,7 @@ namespace PowderClone
     {
         public Sand()
         {
-            SetColor(Color.SandyBrown);
+            PowderColor = Color.SandyBrown;
         }
         public override void Update()
         {

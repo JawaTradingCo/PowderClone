@@ -11,7 +11,7 @@ namespace PowderClone
     {
         public Oil()
         {
-            SetColor(Color.DarkSlateGray);
+            PowderColor = Color.DarkSlateGray;
         }
 
         public double Flammability()

@@ -7,7 +7,7 @@ namespace PowderClone
     {
         public Liquid()
         {
-            SetColor(Color.SkyBlue);
+            PowderColor = Color.SkyBlue;
         }
         public override void Update()
         {

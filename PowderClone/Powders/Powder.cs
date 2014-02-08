@@ -186,10 +186,6 @@ namespace PowderClone
             x = new_x;
             y = new_y;
         }
-        public void SetColor(Color c)
-        {
-            PowderColor = c;
-        }
 
         public bool OnSolid()
         {

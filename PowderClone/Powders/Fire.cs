@@ -12,7 +12,7 @@ namespace PowderClone
         public int Life;
         public Fire()
         {
-            SetColor(Color.OrangeRed);
+            PowderColor = Color.OrangeRed;
 
             Life = Simulator.Random.Next(0, 100);
         }
