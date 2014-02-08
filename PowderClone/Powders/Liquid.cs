@@ -19,7 +19,7 @@ namespace PowderClone
                 {
                     if (Simulator.Powders.Exists(c => c.y == y - 1 & c.x != x - 1) & Simulator.Powders.Exists(c => c.y == y - 1 & c.x != x + 1))
                     {
-                        MoveX(Simulator.Random.Next(-1, 3));
+                        MoveX(Simulator.Random.Next(-1, 2));
                     }
                     else if (Simulator.Powders.Exists(c => c.y == y - 1 & c.x != x - 1))
                     {
