@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 namespace PowderClone
 {
@@ -21,27 +22,31 @@ namespace PowderClone
 
         static void Clear()
         {
-            buffer = new Bitmap(ROpt.OutputWidth,ROpt.OutputHeight);
+            buffer = new Bitmap(ROpt.OutputWidth, ROpt.OutputHeight);
 
-            var g = Graphics.FromImage(buffer);
-            g.Clear(Color.Black);
+            lock (buffer)
+            {
+                var g = Graphics.FromImage(buffer);
+                g.Clear(Color.Black);
 
-            g.Dispose();
+                g.Dispose();
+            }
         }
 
         static void DrawPowders()
         {
-            try
-            {
-                foreach (var p in Simulator.Powders.ToList())
-                    buffer.SetPixel(p.x, p.y, p.PowderColor);
-            }
-            catch { }
+            lock (buffer)
+                lock (Simulator.PowderLock)
+                {
+                    foreach (var p in Simulator.Powders.ToList())
+                        buffer.SetPixel(p.x, p.y, p.PowderColor);
+                }
         }
 
         static void DrawUI()
         {
-            buffer.SetPixel(Simulator.MouseLocation.X, Simulator.MouseLocation.Y, Color.White);
+            lock (buffer)
+                buffer.SetPixel(Simulator.MouseLocation.X, Simulator.MouseLocation.Y, Color.White);
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 
@@ -37,17 +38,17 @@ namespace PowderClone
                 {
                     PossibleObstacles = Simulator.Powders.Where(c =>//Go through all powders and run checks:
                         c.x == x//Make sure we are on the same x level.
-                        && !c.Equals(this)//Make sure we dont include ourselves in the collision check
                         && y < c.y//Make sure that the y value is above ours (as we are moving downwards)
-                        && y + distance >= c.y);//Make sure that the y value is below or equal to our value + the distance we are travelling
+                        && y + distance >= c.y//Make sure that the y value is below or equal to our value + the distance we are travelling
+                        && !c.Equals(this));//Make sure we dont include ourselves in the collision check
                 }
                 else
                 {
                     PossibleObstacles = Simulator.Powders.Where(c =>//Go through all powders and run checks:
                         c.x == x//Make sure we are on the same x level.
-                        && !c.Equals(this)//Make sure we dont include ourselves in the collision check
                         && y > c.y//Make sure that the y value is below ours (as we are moving upwards)
-                        && y + distance <= c.y);//Make sure that the y value is below or equal to our value + the distance we are travelling
+                        && y + distance <= c.y//Make sure that the y value is below or equal to our value + the distance we are travelling
+                        && !c.Equals(this));//Make sure we dont include ourselves in the collision check
                 }
 
                 if (PossibleObstacles.Any())
@@ -97,7 +98,7 @@ namespace PowderClone
                 //if we haven't returned by now, we are good to move normally.
                 y = y + distance;
             }
-            catch(InvalidOperationException) { }
+            catch(InvalidOperationException) { Debug.WriteLine("MoveY failed with InvOP at distance " + distance);}
 
         }
 
@@ -176,7 +177,7 @@ namespace PowderClone
                 //if we haven't returned by now, we are good to just move normally.
                 x = x + distance;
             }
-            catch(InvalidOperationException) { }
+            catch (InvalidOperationException) { Debug.WriteLine("MoveX failed with InvOP at distance " + distance); }
 
         }
 

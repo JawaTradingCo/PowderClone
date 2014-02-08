@@ -24,19 +24,6 @@ namespace PowderClone
         void Simulator_RenderComplete(Image output)
         {
             pictureBox1.Image = output;
-
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Simulator.DoSimulate = false;
-            for (int i = 0; i < 20; i++)
-            {
-                Simulator.Powders.Add(new Liquid { x = 10, y = 15, PowderColor = Color.Pink});
-            }
-            Simulator.DoSimulate = true;
-            
         }
 
 

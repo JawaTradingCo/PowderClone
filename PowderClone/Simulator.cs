@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Timers;
@@ -20,9 +21,12 @@ namespace PowderClone
 
         static public List<Powder> Powders = new List<Powder>();
 
-        static public Point MouseLocation = new Point(0,0);
+        static public Point MouseLocation = new Point(0, 0);
 
-        public static List<Keys> keysDown = new List<Keys>();
+        static public List<Keys> keysDown = new List<Keys>();
+
+        public static object PowderLock = new object();
+        public static object RenderLock = new object();
 
 
         public static bool DoSimulate = false;
@@ -30,11 +34,6 @@ namespace PowderClone
         static Simulator()
         {
             RenderLoop.Elapsed += RenderLoop_Elapsed;
-
-            Powders.Add(new Powder());
-            Powders.Add(new Wall());
-
-
         }
 
         public static void Start()
@@ -46,33 +45,39 @@ namespace PowderClone
 
         static void Simulate()
         {
-            foreach (var p in Powders.ToList())
+            lock (PowderLock)
             {
-                p.InternalUpdate();
+                foreach (var p in Powders.ToList())
+                {
+                    p.InternalUpdate();
+                }
             }
         }
 
         static void RenderLoop_Elapsed(object sender, ElapsedEventArgs e)
         {
-            try
+            lock (RenderLock)
             {
-                if(DoSimulate)
+                if (DoSimulate)
                     Simulate();
 
                 RenderComplete(Renderer.Render());
             }
-            catch 
-            {
-                
-            }
-            
+
         }
 
         public static void AddPowderSafe(Powder p)
         {
-            if(!Powders.Exists(c => c.x == p.x & c.y == p.y))//Make sure space isnt occupied
+            if (p.y >= 0 && p.x >= 0 && p.y <= ROpt.OutputWidth && p.x <= ROpt.OutputHeight)
             {
-                Powders.Add(p);
+                Debug.WriteLine("Adding powder at {0} {1}", p.x, p.y);
+                lock (PowderLock)
+                {
+                    if (!Powders.Exists(c => c.x == p.x & c.y == p.y)) //Make sure space isnt occupied
+                    {
+                        Powders.Add(p);
+                    }
+                }
             }
         }
 
