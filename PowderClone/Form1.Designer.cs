@@ -33,8 +33,10 @@
             this.buttonLiquid = new System.Windows.Forms.Button();
             this.buttonWall = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
-            this.pictureBox1 = new PowderClone.PictureBoxWithInterpolationMode();
             this.labelFPS = new System.Windows.Forms.Label();
+            this.buttonFire = new System.Windows.Forms.Button();
+            this.buttonOil = new System.Windows.Forms.Button();
+            this.pictureBox1 = new PowderClone.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,6 +90,36 @@
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
+            // labelFPS
+            // 
+            this.labelFPS.AutoSize = true;
+            this.labelFPS.Location = new System.Drawing.Point(12, 560);
+            this.labelFPS.Name = "labelFPS";
+            this.labelFPS.Size = new System.Drawing.Size(0, 13);
+            this.labelFPS.TabIndex = 6;
+            // 
+            // buttonFire
+            // 
+            this.buttonFire.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.buttonFire.Location = new System.Drawing.Point(336, 534);
+            this.buttonFire.Name = "buttonFire";
+            this.buttonFire.Size = new System.Drawing.Size(75, 23);
+            this.buttonFire.TabIndex = 7;
+            this.buttonFire.Text = "Fire";
+            this.buttonFire.UseVisualStyleBackColor = true;
+            this.buttonFire.Click += new System.EventHandler(this.buttonFire_Click);
+            // 
+            // buttonOil
+            // 
+            this.buttonOil.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.buttonOil.Location = new System.Drawing.Point(336, 563);
+            this.buttonOil.Name = "buttonOil";
+            this.buttonOil.Size = new System.Drawing.Size(75, 23);
+            this.buttonOil.TabIndex = 8;
+            this.buttonOil.Text = "Oil";
+            this.buttonOil.UseVisualStyleBackColor = true;
+            this.buttonOil.Click += new System.EventHandler(this.buttonOil_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
@@ -101,19 +133,13 @@
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
-            // labelFPS
-            // 
-            this.labelFPS.AutoSize = true;
-            this.labelFPS.Location = new System.Drawing.Point(12, 560);
-            this.labelFPS.Name = "labelFPS";
-            this.labelFPS.Size = new System.Drawing.Size(0, 13);
-            this.labelFPS.TabIndex = 6;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 585);
+            this.ClientSize = new System.Drawing.Size(539, 596);
+            this.Controls.Add(this.buttonOil);
+            this.Controls.Add(this.buttonFire);
             this.Controls.Add(this.labelFPS);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonWall);
@@ -138,6 +164,8 @@
         private System.Windows.Forms.Button buttonWall;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Label labelFPS;
+        private System.Windows.Forms.Button buttonFire;
+        private System.Windows.Forms.Button buttonOil;
 
     }
 }

@@ -21,6 +21,11 @@ namespace PowderClone
 
         static public List<Powder> Powders = new List<Powder>();
 
+        //delete queue will delete all items in it after each simulate loop
+        public static Queue<Powder> DeleteQueue = new Queue<Powder>();
+        //add queue is pretty much the same
+        public static Queue<Powder> AddQueue = new Queue<Powder>();
+
         static public Point MouseLocation = new Point(0, 0);
 
         static public List<Keys> keysDown = new List<Keys>();
@@ -55,6 +60,16 @@ namespace PowderClone
                 {
                     p.InternalUpdate();
                 }
+                while (DeleteQueue.Count > 0)
+                {
+                    var p = DeleteQueue.Dequeue();
+                    Powders.Remove(p);
+                }
+                while (AddQueue.Count > 0)
+                {
+                    var p = AddQueue.Dequeue();
+                    Powders.Add(p);
+                }
             }
         }
 
@@ -84,25 +99,33 @@ namespace PowderClone
         {
             if (p.y >= 0 && p.x >= 0 && p.y <= ROpt.OutputWidth && p.x <= ROpt.OutputHeight)
             {
-                lock (PowderLock)
+                lock(PowderLock)
+                if (!Powders.Any(c => c.x == p.x && c.y == p.y)) //Make sure space isnt occupied
                 {
-                    if (!Powders.Exists(c => c.x == p.x & c.y == p.y)) //Make sure space isnt occupied
-                    {
-                        Powders.Add(p);
-                    }
+                    if(!AddQueue.Any(c => c.x == p.x && c.y == p.y))
+                        AddQueue.Enqueue(p);
+                }
+                else if (DeleteQueue.Any(c => c.x == p.x && c.y == p.y))
+                {
+                    //if something is going to be deleted here, we can add anyway.
+
+                    if (!AddQueue.Any(c => c.x == p.x && c.y == p.y))
+                        AddQueue.Enqueue(p);
                 }
             }
         }
 
         public static void RemovePowderSafe(int x, int y)
         {
-            lock(PowderLock)
-                Powders.RemoveAll(p => p.x == x && p.y == y);
+            var powder = Powders.FirstOrDefault(p => p.x == x && p.y == y);
+
+            if (powder != null)
+                DeleteQueue.Enqueue(powder);
         }
 
         public static void ClearPowders()
         {
-            lock(PowderLock)
+            lock (PowderLock)
                 Powders.Clear();
         }
 

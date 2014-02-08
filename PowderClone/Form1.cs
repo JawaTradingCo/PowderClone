@@ -98,6 +98,12 @@ namespace PowderClone
                 case PlaceablePowders.Wall:
                     Simulator.AddPowderSafe(new Wall { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
                     break;
+                case PlaceablePowders.Fire:
+                    Simulator.AddPowderSafe(new Fire { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
+                    break;
+                case PlaceablePowders.Oil:
+                    Simulator.AddPowderSafe(new Oil { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
+                    break;
             }
         }
 
@@ -121,6 +127,16 @@ namespace PowderClone
             currentPowder = PlaceablePowders.Wall;
         }
 
+        private void buttonFire_Click(object sender, EventArgs e)
+        {
+            currentPowder = PlaceablePowders.Fire;
+        }
+
+        private void buttonOil_Click(object sender, EventArgs e)
+        {
+            currentPowder = PlaceablePowders.Oil;
+        }
+
         private void buttonClear_Click(object sender, EventArgs e)
         {
             Simulator.ClearPowders();
@@ -135,6 +151,8 @@ namespace PowderClone
         Powder,
         Sand,
         Liquid,
-        Wall
+        Wall,
+        Fire,
+        Oil
     }
 }

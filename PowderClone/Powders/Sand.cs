@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace PowderClone
 {
-    class Sand : Powder
+    class Sand : Powder, Flammable
     {
         public Sand()
         {
@@ -24,6 +24,11 @@ namespace PowderClone
             }
 
             MoveY(1);
+        }
+
+        public double Flammability()
+        {
+            return 0.5;
         }
     }
 }

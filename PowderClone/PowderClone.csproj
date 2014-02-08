@@ -52,6 +52,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Powders\Fire.cs" />
+    <Compile Include="Powders\Oil.cs" />
+    <Compile Include="Powders\Properties\Flammable.cs" />
     <Compile Include="Powders\Liquid.cs" />
     <Compile Include="NearestNeighbour.cs">
       <SubType>Component</SubType>

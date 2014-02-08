@@ -2,7 +2,7 @@
 
 namespace PowderClone
 {
-    class Wall : Powder
+    class Wall : Powder, Flammable
     {
         public Wall()
         {
@@ -14,6 +14,11 @@ namespace PowderClone
         public override void Update()
         {
             
+        }
+
+        public double Flammability()
+        {
+            return 0.25;
         }
     }
 }
