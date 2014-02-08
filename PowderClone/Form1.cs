@@ -14,7 +14,7 @@ namespace PowderClone
         private bool doMouseDraw;
         private bool doMouseDelete;
 
-        private PlaceablePowders currentPowder = PlaceablePowders.Sand;
+        private Type currentPowder = typeof (Sand);
         
         public Form1()
         {
@@ -32,10 +32,7 @@ namespace PowderClone
         {
             pictureBox1.Image = output;
 
-            if (!labelFPS.InvokeRequired)
-                labelFPS.Text = string.Format("\u0394Render: {0} \u0394Simulate: {1}", Simulator.RenderTime, Simulator.SimulateTime);
-            else
-                labelFPS.Invoke(FPSdelegate);
+            labelFPS.Invoke(FPSdelegate);
         }
         void SetText()
         {
@@ -84,75 +81,44 @@ namespace PowderClone
 
         private void PlaceFromMouse()
         {
-            switch (currentPowder)
-            {
-                case PlaceablePowders.Powder:
-                    Simulator.AddPowderSafe(new Powder { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
-                    break;
-                case PlaceablePowders.Sand:
-                    Simulator.AddPowderSafe(new Sand { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
-                    break;
-                case PlaceablePowders.Liquid:
-                    Simulator.AddPowderSafe(new Liquid { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
-                    break;
-                case PlaceablePowders.Wall:
-                    Simulator.AddPowderSafe(new Wall { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
-                    break;
-                case PlaceablePowders.Fire:
-                    Simulator.AddPowderSafe(new Fire { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
-                    break;
-                case PlaceablePowders.Oil:
-                    Simulator.AddPowderSafe(new Oil { x = Simulator.MouseLocation.X, y = Simulator.MouseLocation.Y });
-                    break;
-            }
+            var powder = (Powder) Activator.CreateInstance(currentPowder);
+            powder.x = Simulator.MouseLocation.X;
+            powder.y = Simulator.MouseLocation.Y;
+            Simulator.AddPowderSafe(powder);
         }
 
         private void buttonPowder_Click(object sender, EventArgs e)
         {
-            currentPowder = PlaceablePowders.Powder;
+            currentPowder = typeof (Powder);
         }
 
         private void buttonSand_Click(object sender, EventArgs e)
         {
-            currentPowder = PlaceablePowders.Sand;
+            currentPowder = typeof(Sand);
         }
 
         private void buttonLiquid_Click(object sender, EventArgs e)
         {
-            currentPowder = PlaceablePowders.Liquid;
+            currentPowder = typeof(Liquid);
         }
 
         private void buttonWall_Click(object sender, EventArgs e)
         {
-            currentPowder = PlaceablePowders.Wall;
+            currentPowder = typeof(Wall);
         }
 
         private void buttonFire_Click(object sender, EventArgs e)
         {
-            currentPowder = PlaceablePowders.Fire;
+            currentPowder = typeof(Fire);
         }
 
         private void buttonOil_Click(object sender, EventArgs e)
         {
-            currentPowder = PlaceablePowders.Oil;
+            currentPowder = typeof(Oil);
         }
-
         private void buttonClear_Click(object sender, EventArgs e)
         {
             Simulator.ClearPowders();
         }
-
-
-
-    }
-
-    public enum PlaceablePowders
-    {
-        Powder,
-        Sand,
-        Liquid,
-        Wall,
-        Fire,
-        Oil
     }
 }

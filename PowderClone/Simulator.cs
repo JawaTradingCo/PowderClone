@@ -56,7 +56,7 @@ namespace PowderClone
         {
             lock (PowderLock)
             {
-                foreach (var p in Powders.Where(p => !p.IsSolid))
+                foreach (var p in Powders)
                 {
                     p.InternalUpdate();
                 }
