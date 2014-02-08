@@ -197,8 +197,11 @@ namespace PowderClone
             {
                 return true;
             }
-            if (Simulator.Powders.Exists(c => c.y == y + 1))
+
+            var powder = Simulator.Powders.FirstOrDefault(c => c.y == y + 1);
+            if (powder != null)
             {
+                if (powder is Wall) return true;
                 return Simulator.Powders.First(c => c.y == y + 1).OnSolid();
             }
 
