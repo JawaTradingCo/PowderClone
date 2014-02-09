@@ -36,6 +36,7 @@
             this.labelFPS = new System.Windows.Forms.Label();
             this.buttonFire = new System.Windows.Forms.Button();
             this.buttonOil = new System.Windows.Forms.Button();
+            this.checkBoxReplace = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new PowderClone.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -82,7 +83,7 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(449, 534);
+            this.buttonClear.Location = new System.Drawing.Point(422, 534);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 5;
@@ -93,10 +94,11 @@
             // labelFPS
             // 
             this.labelFPS.AutoSize = true;
-            this.labelFPS.Location = new System.Drawing.Point(12, 560);
+            this.labelFPS.Location = new System.Drawing.Point(12, 568);
             this.labelFPS.Name = "labelFPS";
-            this.labelFPS.Size = new System.Drawing.Size(0, 13);
+            this.labelFPS.Size = new System.Drawing.Size(159, 13);
             this.labelFPS.TabIndex = 6;
+            this.labelFPS.Text = "deltas deltas deltas deltas deltas";
             // 
             // buttonFire
             // 
@@ -120,6 +122,16 @@
             this.buttonOil.UseVisualStyleBackColor = true;
             this.buttonOil.Click += new System.EventHandler(this.buttonOil_Click);
             // 
+            // checkBoxReplace
+            // 
+            this.checkBoxReplace.AutoSize = true;
+            this.checkBoxReplace.Location = new System.Drawing.Point(174, 567);
+            this.checkBoxReplace.Name = "checkBoxReplace";
+            this.checkBoxReplace.Size = new System.Drawing.Size(66, 17);
+            this.checkBoxReplace.TabIndex = 9;
+            this.checkBoxReplace.Text = "Replace";
+            this.checkBoxReplace.UseVisualStyleBackColor = true;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
@@ -138,6 +150,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 596);
+            this.Controls.Add(this.checkBoxReplace);
             this.Controls.Add(this.buttonOil);
             this.Controls.Add(this.buttonFire);
             this.Controls.Add(this.labelFPS);
@@ -166,6 +179,7 @@
         private System.Windows.Forms.Label labelFPS;
         private System.Windows.Forms.Button buttonFire;
         private System.Windows.Forms.Button buttonOil;
+        private System.Windows.Forms.CheckBox checkBoxReplace;
 
     }
 }

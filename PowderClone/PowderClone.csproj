@@ -55,6 +55,7 @@
     <Compile Include="Powders\Fire.cs" />
     <Compile Include="Powders\Oil.cs" />
     <Compile Include="Powders\Properties\Anchored.cs" />
+    <Compile Include="Powders\Properties\Extinguishes.cs" />
     <Compile Include="Powders\Properties\Flammable.cs" />
     <Compile Include="Powders\Liquid.cs" />
     <Compile Include="NearestNeighbour.cs">

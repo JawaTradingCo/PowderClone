@@ -26,7 +26,6 @@ namespace PowderClone
             //more logic could go here
         }
 
-
         public void MoveY(int distance)
         {
             try
@@ -183,12 +182,6 @@ namespace PowderClone
             }
             catch (InvalidOperationException) { Debug.WriteLine("MoveX failed with InvOP at distance " + distance); }
 
-        }
-
-        public void SetPos(int new_x,int new_y)
-        {
-            x = new_x;
-            y = new_y;
         }
 
         public bool OnSolid()

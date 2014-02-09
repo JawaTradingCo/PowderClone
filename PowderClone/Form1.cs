@@ -11,10 +11,11 @@ namespace PowderClone
         private delegate void SetFPSText();
         private SetFPSText FPSdelegate;
 
-        private bool doMouseDraw;
-        private bool doMouseDelete;
-
         private Type currentPowder = typeof(Sand);
+
+        private Timer mouseTimer = new Timer();
+
+        private MouseMode mouseMode = MouseMode.Place;
 
 
         public Form1()
@@ -27,9 +28,9 @@ namespace PowderClone
 
             Simulator.Start();
 
-            Testing.StartTest();
+            mouseTimer.Interval = 10;
+            mouseTimer.Tick += mouseTimer_Tick;
         }
-
 
         void Simulator_RenderComplete(Image output)
         {
@@ -39,7 +40,7 @@ namespace PowderClone
         }
         void SetText()
         {
-            labelFPS.Text = string.Format("\u0394Render: {0} \u0394Simulate: {1}", Simulator.RenderTime, Simulator.SimulateTime);
+            labelFPS.Text = string.Format("Render: {0}ms Simulate: {1}ms", Simulator.RenderTime, Simulator.SimulateTime);
         }
 
 
@@ -48,15 +49,21 @@ namespace PowderClone
             int Xscale = pictureBox1.Width / ROpt.OutputWidth;
             int Yscale = pictureBox1.Height / ROpt.OutputHeight;
             Simulator.MouseLocation = new Point(e.X / Xscale, e.Y / Yscale);
-            if (doMouseDraw)
+        }
+
+        void mouseTimer_Tick(object sender, EventArgs e)
+        {
+            switch (mouseMode)
             {
-                PlaceFromMouse();
-            }
-            if (doMouseDelete)
-            {
-                Simulator.RemovePowderSafe(Simulator.MouseLocation.X, Simulator.MouseLocation.Y);
+                case MouseMode.Place:
+                    PlaceFromMouse();
+                    break;
+                case MouseMode.Delete:
+                    Simulator.RemovePowderSafe(Simulator.MouseLocation.X, Simulator.MouseLocation.Y);
+                    break;
             }
         }
+
 
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -65,21 +72,23 @@ namespace PowderClone
             {
                 case MouseButtons.Left:
                     PlaceFromMouse();
-                    doMouseDraw = true;
+
+                    mouseMode = MouseMode.Place;
+                    mouseTimer.Start();
                     break;
 
                 case MouseButtons.Right:
                     Simulator.RemovePowderSafe(Simulator.MouseLocation.X, Simulator.MouseLocation.Y);
-                    doMouseDelete = true;
 
+                    mouseMode = MouseMode.Delete;
+                    mouseTimer.Start();
                     break;
             }
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            doMouseDraw = false;
-            doMouseDelete = false;
+            mouseTimer.Stop();
         }
 
         private void PlaceFromMouse()
@@ -87,6 +96,9 @@ namespace PowderClone
             var square = Utility.MakeSquare(Simulator.MouseLocation, 1);
             foreach (Point point in square)
             {
+                if(checkBoxReplace.Checked)
+                    Simulator.RemovePowderSafe(point.X, point.Y);
+
                 var powder = (Powder)Activator.CreateInstance(currentPowder);
                 powder.x = point.X;
                 powder.y = point.Y;
@@ -130,5 +142,11 @@ namespace PowderClone
             Simulator.ClearPowders();
         }
         #endregion
+
+        private enum MouseMode
+        {
+            Place,
+            Delete
+        }
     }
 }

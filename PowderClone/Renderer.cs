@@ -45,8 +45,12 @@ namespace PowderClone
 
         static void DrawUI()
         {
-            lock (buffer)
-                buffer.SetPixel(Simulator.MouseLocation.X, Simulator.MouseLocation.Y, Color.White);
+            try
+            {
+                lock (buffer)
+                    buffer.SetPixel(Simulator.MouseLocation.X, Simulator.MouseLocation.Y, Color.White);
+            }
+            catch { }
         }
 
 

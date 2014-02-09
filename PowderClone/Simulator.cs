@@ -97,30 +97,33 @@ namespace PowderClone
 
         public static void AddPowderSafe(Powder p)
         {
-            if (p.y >= 0 && p.x >= 0 && p.y <= ROpt.OutputWidth && p.x <= ROpt.OutputHeight)
+            if (p.y >= 0 && p.x >= 0 && p.y < ROpt.OutputWidth && p.x < ROpt.OutputHeight)
             {
-                lock(PowderLock)
-                if (!Powders.Any(c => c.x == p.x && c.y == p.y)) //Make sure space isnt occupied
-                {
-                    if(!AddQueue.Any(c => c.x == p.x && c.y == p.y))
-                        AddQueue.Enqueue(p);
-                }
-                else if (DeleteQueue.Any(c => c.x == p.x && c.y == p.y))
-                {
-                    //if something is going to be deleted here, we can add anyway.
+                lock (PowderLock)
+                    if (!Powders.Any(c => c.x == p.x && c.y == p.y)) //Make sure space isnt occupied
+                    {
+                        if (!AddQueue.Any(c => c.x == p.x && c.y == p.y))
+                            AddQueue.Enqueue(p);
+                    }
+                    else if (DeleteQueue.Any(c => c.x == p.x && c.y == p.y))
+                    {
+                        //if something is going to be deleted here, we can add anyway.
 
-                    if (!AddQueue.Any(c => c.x == p.x && c.y == p.y))
-                        AddQueue.Enqueue(p);
-                }
+                        if (!AddQueue.Any(c => c.x == p.x && c.y == p.y))
+                            AddQueue.Enqueue(p);
+                    }
             }
         }
 
         public static void RemovePowderSafe(int x, int y)
         {
-            var powder = Powders.FirstOrDefault(p => p.x == x && p.y == y);
+            lock (PowderLock)
+            {
+                var powder = Powders.FirstOrDefault(p => p.x == x && p.y == y);
 
-            if (powder != null)
-                DeleteQueue.Enqueue(powder);
+                if (powder != null)
+                    DeleteQueue.Enqueue(powder);
+            }
         }
 
         public static void ClearPowders()
