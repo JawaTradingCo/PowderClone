@@ -12,11 +12,12 @@ namespace PowderClone
         }
         public override void Update()
         {
-            //pls fix is bad
+            //not realistic at all, but works.
 
             if (Simulator.Powders.Exists(c => c.y == y - 1 && c.x == x))//If powder is above
             {
-                Pressure = true;
+                if(OnSolid())
+                    Pressure = true;
             }
 
             if (Pressure)
@@ -28,6 +29,7 @@ namespace PowderClone
 
             foreach (var liquid in neighbours.OfType<Liquid>())
             {
+                if (liquid.OnSolid())
                 liquid.Pressure = true;
             }
 

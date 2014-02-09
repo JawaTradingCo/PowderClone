@@ -37,6 +37,9 @@ namespace PowderClone
         public static object PowderLock = new object();
         public static object RenderLock = new object();
 
+        private static Stopwatch DeltaStopwatch = new Stopwatch();
+        public static int DeltaT = 0;
+
 
         public static bool DoSimulate = false;
 
@@ -77,6 +80,9 @@ namespace PowderClone
         {
             lock (RenderLock)
             {
+                DeltaT = (int)DeltaStopwatch.ElapsedMilliseconds;
+                DeltaStopwatch.Restart();
+
                 var counter = new Stopwatch();
                 counter.Start();
 
@@ -91,6 +97,7 @@ namespace PowderClone
                 RenderTime = (int)counter.ElapsedMilliseconds;
 
                 counter.Stop();
+
             }
 
         }

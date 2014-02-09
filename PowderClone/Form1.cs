@@ -40,7 +40,7 @@ namespace PowderClone
         }
         void SetText()
         {
-            labelFPS.Text = string.Format("Render: {0}ms Simulate: {1}ms", Simulator.RenderTime, Simulator.SimulateTime);
+            labelFPS.Text = string.Format("Render: {0}ms Simulate: {1}ms Powders: {2} Delta:{3}", Simulator.RenderTime, Simulator.SimulateTime,Simulator.Powders.Count,Simulator.DeltaT);
         }
 
 
@@ -108,11 +108,6 @@ namespace PowderClone
 
         #region Buttons
 
-        private void buttonPowder_Click(object sender, EventArgs e)
-        {
-            currentPowder = typeof(Powder);
-        }
-
         private void buttonSand_Click(object sender, EventArgs e)
         {
             currentPowder = typeof(Sand);
@@ -120,7 +115,7 @@ namespace PowderClone
 
         private void buttonLiquid_Click(object sender, EventArgs e)
         {
-            currentPowder = typeof(Liquid);
+            currentPowder = typeof(Water);
         }
 
         private void buttonWall_Click(object sender, EventArgs e)

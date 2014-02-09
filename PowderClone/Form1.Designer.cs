@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonPowder = new System.Windows.Forms.Button();
             this.buttonSand = new System.Windows.Forms.Button();
             this.buttonLiquid = new System.Windows.Forms.Button();
             this.buttonWall = new System.Windows.Forms.Button();
@@ -40,16 +39,6 @@
             this.pictureBox1 = new PowderClone.PictureBoxWithInterpolationMode();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // buttonPowder
-            // 
-            this.buttonPowder.Location = new System.Drawing.Point(12, 534);
-            this.buttonPowder.Name = "buttonPowder";
-            this.buttonPowder.Size = new System.Drawing.Size(75, 23);
-            this.buttonPowder.TabIndex = 1;
-            this.buttonPowder.Text = "Powder";
-            this.buttonPowder.UseVisualStyleBackColor = true;
-            this.buttonPowder.Click += new System.EventHandler(this.buttonPowder_Click);
             // 
             // buttonSand
             // 
@@ -67,7 +56,7 @@
             this.buttonLiquid.Name = "buttonLiquid";
             this.buttonLiquid.Size = new System.Drawing.Size(75, 23);
             this.buttonLiquid.TabIndex = 3;
-            this.buttonLiquid.Text = "Liquid";
+            this.buttonLiquid.Text = "Water";
             this.buttonLiquid.UseVisualStyleBackColor = true;
             this.buttonLiquid.Click += new System.EventHandler(this.buttonLiquid_Click);
             // 
@@ -114,7 +103,7 @@
             // buttonOil
             // 
             this.buttonOil.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.buttonOil.Location = new System.Drawing.Point(336, 563);
+            this.buttonOil.Location = new System.Drawing.Point(12, 534);
             this.buttonOil.Name = "buttonOil";
             this.buttonOil.Size = new System.Drawing.Size(75, 23);
             this.buttonOil.TabIndex = 8;
@@ -125,7 +114,7 @@
             // checkBoxReplace
             // 
             this.checkBoxReplace.AutoSize = true;
-            this.checkBoxReplace.Location = new System.Drawing.Point(174, 567);
+            this.checkBoxReplace.Location = new System.Drawing.Point(431, 567);
             this.checkBoxReplace.Name = "checkBoxReplace";
             this.checkBoxReplace.Size = new System.Drawing.Size(66, 17);
             this.checkBoxReplace.TabIndex = 9;
@@ -158,7 +147,6 @@
             this.Controls.Add(this.buttonWall);
             this.Controls.Add(this.buttonLiquid);
             this.Controls.Add(this.buttonSand);
-            this.Controls.Add(this.buttonPowder);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.Text = "Powder Clone";
@@ -171,7 +159,6 @@
         #endregion
 
         private PictureBoxWithInterpolationMode pictureBox1;
-        private System.Windows.Forms.Button buttonPowder;
         private System.Windows.Forms.Button buttonSand;
         private System.Windows.Forms.Button buttonLiquid;
         private System.Windows.Forms.Button buttonWall;
