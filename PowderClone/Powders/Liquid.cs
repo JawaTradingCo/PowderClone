@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace PowderClone
 {
-    class Liquid : Powder, Extinguishes
+    class Liquid : Powder
     {
         public bool Pressure;
         public Liquid()
