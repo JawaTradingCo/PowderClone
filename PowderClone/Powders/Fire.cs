@@ -22,21 +22,27 @@ namespace PowderClone
             MoveY(-1);
             MoveX(Simulator.Random.Next(-1, 2));
 
-            var possibleIgnitions = Simulator.Powders.Where(p =>p is Flammable &&
-                                                            ((p.x == x + 1 && p.y == y) |
-                                                            (p.y == y + 1 && p.x == x) |
-                                                            (p.x == x - 1 && p.y == y) |
-                                                            (p.y == y - 1 && p.x == x))
-                                                            );
+            var possibleIgnitions = Utility.MakeSquare(new Point(x, y), 1);
 
-            foreach (var possibleIgnition in possibleIgnitions)
+            foreach (var point in possibleIgnitions)
             {
-               var flammable = possibleIgnition as Flammable;
+                var powder = Simulator.Powders.FirstOrDefault(p => p.x == point.X && p.y == point.Y);
+
+                if (powder is Extinguishes)
+                {
+                    Simulator.DeleteQueue.Enqueue(this);
+                    continue;
+                }
+
+                if(powder == null || !(powder is Flammable)) continue;
+
+                var flammable = powder as Flammable;
                 if (Simulator.Random.NextDouble() < flammable.Flammability())
                 {
 
-                    Simulator.DeleteQueue.Enqueue(possibleIgnition);
-                    Simulator.AddPowderSafe(new Fire { x = possibleIgnition.x, y = possibleIgnition.y });
+                    Simulator.DeleteQueue.Enqueue(powder);
+                    if(Simulator.Random.NextDouble() > flammable.Flammability())
+                        Simulator.AddPowderSafe(new Fire { x = powder.x, y = powder.y });
                 }
             }
 
